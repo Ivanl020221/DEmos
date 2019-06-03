@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище UserXModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Call">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Пользователь" Type="bigint" Nullable="false" />
+    <Property Name="ДатаВремяЗвонкаПоЛиду" Type="datetime" Nullable="false" />
+    <Property Name="ДлительностьЗвонка" Type="int" Nullable="false" />
+    <Property Name="Лид" Type="bigint" Nullable="false" />
+    <Property Name="Удален" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CategoryLead">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Наименование" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Lead">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Логин" Type="bigint" Nullable="false" />
+    <Property Name="РаботаСВозражениями" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ОвладениеНавыкамиПродаж" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ЗнаниеПродуктовКомпании" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ДатаВремяСозданияЛида" Type="datetime" Nullable="false" />
+    <Property Name="Статус" Type="bigint" Nullable="false" />
+    <Property Name="НомерТелефонаКлиента" Type="bigint" Nullable="false" />
+    <Property Name="Удален" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Логин" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Пароль" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Фамилия" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Имя" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Отчество" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="РаботаСВозражениями" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ОвладениеНавыкамиПродаж" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ЗнаниеПродуктовКомпании" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Удален" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Call_Lead">
+    <End Role="Lead" Type="Self.Lead" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Call" Type="Self.Call" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lead">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Call">
+        <PropertyRef Name="Лид" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Call_User">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Call" Type="Self.Call" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Call">
+        <PropertyRef Name="Пользователь" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lead_CategoryLead">
+    <End Role="CategoryLead" Type="Self.CategoryLead" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Lead" Type="Self.Lead" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoryLead">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Lead">
+        <PropertyRef Name="Статус" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lead_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Lead" Type="Self.Lead" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Lead">
+        <PropertyRef Name="Логин" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище UserXModelContainer">
+    <EntitySet Name="Call" EntityType="Self.Call" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CategoryLead" EntityType="Self.CategoryLead" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lead" EntityType="Self.Lead" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Call_Lead" Association="Self.FK_Call_Lead">
+      <End Role="Lead" EntitySet="Lead" />
+      <End Role="Call" EntitySet="Call" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Call_User" Association="Self.FK_Call_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Call" EntitySet="Call" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lead_CategoryLead" Association="Self.FK_Lead_CategoryLead">
+      <End Role="CategoryLead" EntitySet="CategoryLead" />
+      <End Role="Lead" EntitySet="Lead" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lead_User" Association="Self.FK_Lead_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Lead" EntitySet="Lead" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
