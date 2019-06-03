@@ -1,0 +1,42 @@
+﻿<Window x:Class="ESoftCall.Auth.LoginPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ESoftCall.Auth"
+        mc:Ignorable="d"
+        Title="Авторизация" 
+        Height="450" 
+        Width="400" 
+        MinHeight="450" 
+        MinWidth="400" 
+        Foreground="#FF243238" Icon="/ESoftCall;component/logo.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label>Авторизация</Label>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Логин">
+                <TextBox x:Name="Login"></TextBox>
+            </GroupBox>
+            <GroupBox Header="Пароль" Grid.Row="1">
+                <PasswordBox x:Name="Password"></PasswordBox>
+            </GroupBox>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Click="Auth">Войти</Button>
+                <Button Grid.Column="1" Style="{StaticResource Red}" Click="Exit">Закрыть</Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

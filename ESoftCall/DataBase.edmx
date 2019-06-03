@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище UserXModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Call">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Пользователь" Type="bigint" Nullable="false" />
+          <Property Name="ДатаВремяЗвонкаПоЛиду" Type="datetime" Nullable="false" />
+          <Property Name="ДлительностьЗвонка" Type="int" Nullable="false" />
+          <Property Name="Лид" Type="bigint" Nullable="false" />
+          <Property Name="Удален" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoryLead">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Lead">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Логин" Type="bigint" Nullable="false" />
+          <Property Name="РаботаСВозражениями" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ОвладениеНавыкамиПродаж" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ЗнаниеПродуктовКомпании" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ДатаВремяСозданияЛида" Type="datetime" Nullable="false" />
+          <Property Name="Статус" Type="bigint" Nullable="false" />
+          <Property Name="НомерТелефонаКлиента" Type="bigint" Nullable="false" />
+          <Property Name="Удален" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Логин" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Пароль" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Фамилия" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Имя" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Отчество" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="РаботаСВозражениями" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ОвладениеНавыкамиПродаж" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ЗнаниеПродуктовКомпании" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Удален" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Call_Lead">
+          <End Role="Lead" Type="Self.Lead" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Call" Type="Self.Call" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lead">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Call">
+              <PropertyRef Name="Лид" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Call_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Call" Type="Self.Call" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Call">
+              <PropertyRef Name="Пользователь" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lead_CategoryLead">
+          <End Role="CategoryLead" Type="Self.CategoryLead" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lead" Type="Self.Lead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryLead">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lead">
+              <PropertyRef Name="Статус" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lead_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Lead" Type="Self.Lead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lead">
+              <PropertyRef Name="Логин" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище UserXModelContainer">
+          <EntitySet Name="Call" EntityType="Self.Call" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryLead" EntityType="Self.CategoryLead" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lead" EntityType="Self.Lead" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Call_Lead" Association="Self.FK_Call_Lead">
+            <End Role="Lead" EntitySet="Lead" />
+            <End Role="Call" EntitySet="Call" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Call_User" Association="Self.FK_Call_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Call" EntitySet="Call" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lead_CategoryLead" Association="Self.FK_Lead_CategoryLead">
+            <End Role="CategoryLead" EntitySet="CategoryLead" />
+            <End Role="Lead" EntitySet="Lead" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lead_User" Association="Self.FK_Lead_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Lead" EntitySet="Lead" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UserXModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="UserXEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Call" EntityType="UserXModel.Call" />
+          <EntitySet Name="CategoryLead" EntityType="UserXModel.CategoryLead" />
+          <EntitySet Name="Lead" EntityType="UserXModel.Lead" />
+          <EntitySet Name="sysdiagrams" EntityType="UserXModel.sysdiagrams" />
+          <EntitySet Name="User" EntityType="UserXModel.User" />
+          <AssociationSet Name="FK_Call_Lead" Association="UserXModel.FK_Call_Lead">
+            <End Role="Lead" EntitySet="Lead" />
+            <End Role="Call" EntitySet="Call" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Call_User" Association="UserXModel.FK_Call_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Call" EntitySet="Call" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lead_CategoryLead" Association="UserXModel.FK_Lead_CategoryLead">
+            <End Role="CategoryLead" EntitySet="CategoryLead" />
+            <End Role="Lead" EntitySet="Lead" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lead_User" Association="UserXModel.FK_Lead_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Lead" EntitySet="Lead" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Call">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Пользователь" Type="Int64" Nullable="false" />
+          <Property Name="ДатаВремяЗвонкаПоЛиду" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ДлительностьЗвонка" Type="Int32" Nullable="false" />
+          <Property Name="Лид" Type="Int64" Nullable="false" />
+          <Property Name="Удален" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Lead" Relationship="UserXModel.FK_Call_Lead" FromRole="Call" ToRole="Lead" />
+          <NavigationProperty Name="User" Relationship="UserXModel.FK_Call_User" FromRole="Call" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CategoryLead">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Наименование" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lead" Relationship="UserXModel.FK_Lead_CategoryLead" FromRole="CategoryLead" ToRole="Lead" />
+        </EntityType>
+        <EntityType Name="Lead">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Логин" Type="Int64" Nullable="false" />
+          <Property Name="РаботаСВозражениями" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ОвладениеНавыкамиПродаж" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ЗнаниеПродуктовКомпании" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ДатаВремяСозданияЛида" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Статус" Type="Int64" Nullable="false" />
+          <Property Name="НомерТелефонаКлиента" Type="Int64" Nullable="false" />
+          <Property Name="Удален" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Call" Relationship="UserXModel.FK_Call_Lead" FromRole="Lead" ToRole="Call" />
+          <NavigationProperty Name="CategoryLead" Relationship="UserXModel.FK_Lead_CategoryLead" FromRole="Lead" ToRole="CategoryLead" />
+          <NavigationProperty Name="User" Relationship="UserXModel.FK_Lead_User" FromRole="Lead" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Логин" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Пароль" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Фамилия" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Имя" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Отчество" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="РаботаСВозражениями" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ОвладениеНавыкамиПродаж" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ЗнаниеПродуктовКомпании" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Удален" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Call" Relationship="UserXModel.FK_Call_User" FromRole="User" ToRole="Call" />
+          <NavigationProperty Name="Lead" Relationship="UserXModel.FK_Lead_User" FromRole="User" ToRole="Lead" />
+        </EntityType>
+        <Association Name="FK_Call_Lead">
+          <End Type="UserXModel.Lead" Role="Lead" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="UserXModel.Call" Role="Call" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lead">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Call">
+              <PropertyRef Name="Лид" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Call_User">
+          <End Type="UserXModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="UserXModel.Call" Role="Call" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Call">
+              <PropertyRef Name="Пользователь" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lead_CategoryLead">
+          <End Type="UserXModel.CategoryLead" Role="CategoryLead" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="UserXModel.Lead" Role="Lead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryLead">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lead">
+              <PropertyRef Name="Статус" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lead_User">
+          <End Type="UserXModel.User" Role="User" Multiplicity="1" />
+          <End Type="UserXModel.Lead" Role="Lead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lead">
+              <PropertyRef Name="Логин" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище UserXModelContainer" CdmEntityContainer="UserXEntities">
+          <EntitySetMapping Name="Call">
+            <EntityTypeMapping TypeName="UserXModel.Call">
+              <MappingFragment StoreEntitySet="Call">
+                <ScalarProperty Name="Удален" ColumnName="Удален" />
+                <ScalarProperty Name="Лид" ColumnName="Лид" />
+                <ScalarProperty Name="ДлительностьЗвонка" ColumnName="ДлительностьЗвонка" />
+                <ScalarProperty Name="ДатаВремяЗвонкаПоЛиду" ColumnName="ДатаВремяЗвонкаПоЛиду" />
+                <ScalarProperty Name="Пользователь" ColumnName="Пользователь" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryLead">
+            <EntityTypeMapping TypeName="UserXModel.CategoryLead">
+              <MappingFragment StoreEntitySet="CategoryLead">
+                <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lead">
+            <EntityTypeMapping TypeName="UserXModel.Lead">
+              <MappingFragment StoreEntitySet="Lead">
+                <ScalarProperty Name="Удален" ColumnName="Удален" />
+                <ScalarProperty Name="НомерТелефонаКлиента" ColumnName="НомерТелефонаКлиента" />
+                <ScalarProperty Name="Статус" ColumnName="Статус" />
+                <ScalarProperty Name="ДатаВремяСозданияЛида" ColumnName="ДатаВремяСозданияЛида" />
+                <ScalarProperty Name="ЗнаниеПродуктовКомпании" ColumnName="ЗнаниеПродуктовКомпании" />
+                <ScalarProperty Name="ОвладениеНавыкамиПродаж" ColumnName="ОвладениеНавыкамиПродаж" />
+                <ScalarProperty Name="РаботаСВозражениями" ColumnName="РаботаСВозражениями" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="UserXModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="UserXModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Удален" ColumnName="Удален" />
+                <ScalarProperty Name="ЗнаниеПродуктовКомпании" ColumnName="ЗнаниеПродуктовКомпании" />
+                <ScalarProperty Name="ОвладениеНавыкамиПродаж" ColumnName="ОвладениеНавыкамиПродаж" />
+                <ScalarProperty Name="РаботаСВозражениями" ColumnName="РаботаСВозражениями" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
