@@ -15,6 +15,7 @@
           <Property Name="ДлительностьЗвонка" Type="int" Nullable="false" />
           <Property Name="Лид" Type="bigint" Nullable="false" />
           <Property Name="Удален" Type="bit" Nullable="false" />
+          <Property Name="Коментарий" Type="ntext" />
         </EntityType>
         <EntityType Name="CategoryLead">
           <Key>
@@ -36,6 +37,7 @@
           <Property Name="Статус" Type="bigint" Nullable="false" />
           <Property Name="НомерТелефонаКлиента" Type="bigint" Nullable="false" />
           <Property Name="Удален" Type="bit" Nullable="false" />
+          <Property Name="Коментарий" Type="ntext" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -176,6 +178,7 @@
           <Property Name="ДлительностьЗвонка" Type="Int32" Nullable="false" />
           <Property Name="Лид" Type="Int64" Nullable="false" />
           <Property Name="Удален" Type="Boolean" Nullable="false" />
+          <Property Name="Коментарий" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Lead" Relationship="UserXModel.FK_Call_Lead" FromRole="Call" ToRole="Lead" />
           <NavigationProperty Name="User" Relationship="UserXModel.FK_Call_User" FromRole="Call" ToRole="User" />
         </EntityType>
@@ -200,6 +203,7 @@
           <Property Name="Статус" Type="Int64" Nullable="false" />
           <Property Name="НомерТелефонаКлиента" Type="Int64" Nullable="false" />
           <Property Name="Удален" Type="Boolean" Nullable="false" />
+          <Property Name="Коментарий" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Call" Relationship="UserXModel.FK_Call_Lead" FromRole="Lead" ToRole="Call" />
           <NavigationProperty Name="CategoryLead" Relationship="UserXModel.FK_Lead_CategoryLead" FromRole="Lead" ToRole="CategoryLead" />
           <NavigationProperty Name="User" Relationship="UserXModel.FK_Lead_User" FromRole="Lead" ToRole="User" />
@@ -294,6 +298,7 @@
           <EntitySetMapping Name="Call">
             <EntityTypeMapping TypeName="UserXModel.Call">
               <MappingFragment StoreEntitySet="Call">
+                <ScalarProperty Name="Коментарий" ColumnName="Коментарий" />
                 <ScalarProperty Name="Удален" ColumnName="Удален" />
                 <ScalarProperty Name="Лид" ColumnName="Лид" />
                 <ScalarProperty Name="ДлительностьЗвонка" ColumnName="ДлительностьЗвонка" />
@@ -314,6 +319,7 @@
           <EntitySetMapping Name="Lead">
             <EntityTypeMapping TypeName="UserXModel.Lead">
               <MappingFragment StoreEntitySet="Lead">
+                <ScalarProperty Name="Коментарий" ColumnName="Коментарий" />
                 <ScalarProperty Name="Удален" ColumnName="Удален" />
                 <ScalarProperty Name="НомерТелефонаКлиента" ColumnName="НомерТелефонаКлиента" />
                 <ScalarProperty Name="Статус" ColumnName="Статус" />

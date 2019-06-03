@@ -20,6 +20,7 @@ namespace ESoftCall
         public int ДлительностьЗвонка { get; set; }
         public long Лид { get; set; }
         public bool Удален { get; set; }
+        public string Коментарий { get; set; }
     
         public virtual Lead Lead { get; set; }
         public virtual User User { get; set; }

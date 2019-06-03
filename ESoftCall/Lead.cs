@@ -29,6 +29,7 @@ namespace ESoftCall
         public long Статус { get; set; }
         public long НомерТелефонаКлиента { get; set; }
         public bool Удален { get; set; }
+        public string Коментарий { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Call> Call { get; set; }
