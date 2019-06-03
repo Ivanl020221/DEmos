@@ -20,11 +20,19 @@ namespace ESoftCall.Calls
     /// </summary>
     public partial class CallsInfo : Page
     {
-        public Call Calls { get; set; }
+        Call Calls;
 
-        public CallsInfo()
+        public CallsInfo(Call call)
         {
+            this.Calls = call;
             InitializeComponent();
+            TimeMask.Mask = "00:00";
+            TimeMask.Text = Calls.ДатаВремяЗвонкаПоЛиду.ToLongTimeString();
+            Date.SelectedDate = this.Calls.ДатаВремяЗвонкаПоЛиду;
+            LenghtCall.Text = Calls.ДлительностьЗвонка.ToString();
+            LeadInfo.Text = Calls.Lead.НомерТелефонаКлиента.ToString();
+            UserCall.Text = Calls.User.Фамилия;
+            Comment.Text = Calls.Коментарий;
         }
     }
 }

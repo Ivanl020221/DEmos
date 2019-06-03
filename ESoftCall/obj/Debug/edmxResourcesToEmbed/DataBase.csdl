@@ -33,6 +33,7 @@
     <Property Name="ДлительностьЗвонка" Type="Int32" Nullable="false" />
     <Property Name="Лид" Type="Int64" Nullable="false" />
     <Property Name="Удален" Type="Boolean" Nullable="false" />
+    <Property Name="Коментарий" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Lead" Relationship="UserXModel.FK_Call_Lead" FromRole="Call" ToRole="Lead" />
     <NavigationProperty Name="User" Relationship="UserXModel.FK_Call_User" FromRole="Call" ToRole="User" />
   </EntityType>
@@ -57,6 +58,7 @@
     <Property Name="Статус" Type="Int64" Nullable="false" />
     <Property Name="НомерТелефонаКлиента" Type="Int64" Nullable="false" />
     <Property Name="Удален" Type="Boolean" Nullable="false" />
+    <Property Name="Коментарий" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Call" Relationship="UserXModel.FK_Call_Lead" FromRole="Lead" ToRole="Call" />
     <NavigationProperty Name="CategoryLead" Relationship="UserXModel.FK_Lead_CategoryLead" FromRole="Lead" ToRole="CategoryLead" />
     <NavigationProperty Name="User" Relationship="UserXModel.FK_Lead_User" FromRole="Lead" ToRole="User" />

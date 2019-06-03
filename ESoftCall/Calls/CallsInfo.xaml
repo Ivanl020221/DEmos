@@ -3,12 +3,52 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Forms ="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
       xmlns:local="clr-namespace:ESoftCall.Calls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CallsInfo">
-
     <Grid>
-        <Label Name="InfoTest"></Label>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+            <ScrollViewer>
+            <StackPanel>
+                <GroupBox Header="Дата/Время совершения звонка">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <DatePicker Name="Date"/>
+                        <WindowsFormsHost Grid.Column="1">
+                            <Forms:MaskedTextBox x:Name="TimeMask"/>
+                        </WindowsFormsHost>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Длительность разговора">
+                    <TextBox x:Name="LenghtCall"/>
+                </GroupBox>
+                <GroupBox Header="Лид">
+                    <TextBox x:Name="LeadInfo" IsReadOnly="True"/>
+                </GroupBox>
+                <GroupBox Header="Пользователь">
+                    <TextBox x:Name="UserCall" IsReadOnly="True"/>
+                </GroupBox>
+                <GroupBox Header="Коментарий">
+                    <TextBox x:Name="Comment"/>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button >добавить</Button>
+            <Button Grid.Column="2">Сохранить изменения</Button>
+        </Grid>
     </Grid>
 </Page>

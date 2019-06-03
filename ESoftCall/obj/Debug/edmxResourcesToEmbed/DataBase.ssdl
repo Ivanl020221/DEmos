@@ -10,6 +10,7 @@
     <Property Name="ДлительностьЗвонка" Type="int" Nullable="false" />
     <Property Name="Лид" Type="bigint" Nullable="false" />
     <Property Name="Удален" Type="bit" Nullable="false" />
+    <Property Name="Коментарий" Type="ntext" />
   </EntityType>
   <EntityType Name="CategoryLead">
     <Key>
@@ -31,6 +32,7 @@
     <Property Name="Статус" Type="bigint" Nullable="false" />
     <Property Name="НомерТелефонаКлиента" Type="bigint" Nullable="false" />
     <Property Name="Удален" Type="bit" Nullable="false" />
+    <Property Name="Коментарий" Type="ntext" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>

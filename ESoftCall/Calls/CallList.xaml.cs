@@ -88,10 +88,7 @@ namespace ESoftCall.Calls
         {
             if (this.Calls.SelectedItem is Call call)
             {
-                CallsInfo callsInfo = new CallsInfo();
-                callsInfo.Calls = call;
-                callsInfo.InfoTest.Content = call.Lead.НомерТелефонаКлиента.ToString();
-                NavigationService.Navigate(callsInfo);
+                NavigationService.Navigate(new CallsInfo(call));
             }
         }
     }

@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Call">
       <EntityTypeMapping TypeName="UserXModel.Call">
         <MappingFragment StoreEntitySet="Call">
+          <ScalarProperty Name="Коментарий" ColumnName="Коментарий" />
           <ScalarProperty Name="Удален" ColumnName="Удален" />
           <ScalarProperty Name="Лид" ColumnName="Лид" />
           <ScalarProperty Name="ДлительностьЗвонка" ColumnName="ДлительностьЗвонка" />
@@ -24,6 +25,7 @@
     <EntitySetMapping Name="Lead">
       <EntityTypeMapping TypeName="UserXModel.Lead">
         <MappingFragment StoreEntitySet="Lead">
+          <ScalarProperty Name="Коментарий" ColumnName="Коментарий" />
           <ScalarProperty Name="Удален" ColumnName="Удален" />
           <ScalarProperty Name="НомерТелефонаКлиента" ColumnName="НомерТелефонаКлиента" />
           <ScalarProperty Name="Статус" ColumnName="Статус" />

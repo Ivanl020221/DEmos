@@ -25,6 +25,13 @@
            
          
         </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontFamily" Value="Tahoma"></Setter>
+            <Setter Property="Foreground" Value="#FF243238"></Setter>
+
+
+        </Style>
         <Style TargetType="PasswordBox">
             <Setter Property="FontSize" Value="14"></Setter>
             <Setter Property="FontFamily" Value="Tahoma"></Setter>
